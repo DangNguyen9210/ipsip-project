@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Triggered Alerts - NOC Tool</title>
+    <title>Add Info for Alerts - NOC Tool</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -52,7 +52,7 @@
 
                     <h3 class="menu-title">Alerts</h3><!-- /.menu-title -->
 
-                    <li class="active">
+                    <li>
                         <a href="trigger.html">Trigger</a>
                     </li>
 
@@ -66,7 +66,7 @@
                         <a href="wiki.html">Wiki</a>
                     </li>
 
-                    <li>
+                    <li class="active">
                         <a href="add.html">Add</a>
                     </li>
 
@@ -123,7 +123,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Triggered Alerts</h1>
+                        <h1>Add info for Alerts</h1>
                     </div>
                 </div>
             </div>
@@ -133,58 +133,106 @@
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Alerts</a></li>
-                            <li class="active">Trigger</li>
+                            <li class="active">Add</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="content mt-3" ng-app="myapp" ng-controller="getAlerts">
+
+        <div class="content mt-3" ng-app="add" ng-controller="post">
             <div class="animated fadeIn">
                 <div class="row">
 
                     <div class="col-md-12">
                         <div class="card">
 
-                            <div class="card-header">
-                                <div class="col-sm-12 col-md-6">
-                                    <label>Search:<input type="search" class="form-control form-control-sm" ng-model="searchText" aria-controls="bootstrap-data-table"></label>
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Form</strong>
+                                </div>
+                                <div class="card-body card-block">
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-1">
+                                            <label for="name" class="form-control-label">Name: </label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input placeholder=" Please enter the name of the alert" class="form-control" ng-model="name">
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-1">
+                                            <label for="host" class="form-control-label"> Host: </label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                          <select class="form-control" name="host" ng-model="host">
+                                              <option label="Choose hosting place" selected disabled></option>
+                                              <option label="inhatho-surface">inhatho-surface</option>
+                                              <option label="inhatho-PC">inhatho-PC</option>
+                                          </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-1">
+                                            <label for="info" class=" form-control-label"> Info: </label>
+                                        </div>
+                                        <div class="col-12 col-md-9 form-control-lg">
+                                            <!-- <input placeholder="Please enter the info of the alert" class="form-control" ng-model="info" row="3"> -->
+                                            <textarea class="form-control" ng-model="info" rows="3" placeholder=" Please enter the info of the alert"></textarea>
+                                        </div>
+                                    </div>
+                                    <br></br>
+                                    <div class="row form-group">
+                                        <div class="col col-md-1">
+                                            <label for="person" class=" form-control-label"> Person: </label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                          <select class="form-control" name="person" ng-model="person">
+                                              <option label="Choose person" selected disabled></option>
+                                              <option label="Dang">Dang</option>
+                                              <option label="Kiet">Kiet</option>
+                                              <option label="Nhat">Nhat</option>
+                                          </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-1">
+                                            <label for="type" class=" form-control-label"> Type: </label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <select class="form-control" name="type" ng-model="type">
+                                              <option label="Choose type" selected disabled></option>
+                                                <option label="Transfer">Transfer</option>
+                                                <option label="Information">Information</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <button class="btn btn-success btn-sm" type="button" value="Submit" ng-click="getInfo(name, host, info, person, type)">
+                                        Submit
+                                    </button>
+
+                                    <button class="btn btn-danger btn-sm" type="button" value="Refresh Page" onClick="window.location.reload()">
+                                        Cancel
+                                    </button>
+
                                 </div>
                             </div>
 
-                            <div class="card-body">
-                                <table id="searchTextResults" class="table table-striped">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Trigger Time</th>
-                                            <th>Urgency</th>
-                                            <th>Host</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="x in names | filter:searchText">
-                                            <td>{{ x.id}}</td>
-                                            <td>{{ x.name}}</td>
-                                            <td>{{ x.type}}</td>
-                                            <td>{{ x.ttime}}</td>
-                                            <td>{{ x.urgency}}</td>
-                                            <td>{{ x.host}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
 
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
-
-
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -209,15 +257,40 @@
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
     <script>
-        var myapp = angular.module('myapp', []);
-        myapp.controller('getAlerts', function getAlerts($scope, $http) {
+        var app = angular.module('add', []);
 
-            $http.get("https://h2kgcp144d.execute-api.us-east-2.amazonaws.com/Testing-midterm/rds-get-alert-trigger")
-                .success(function(response) {
-                    $scope.names = angular.fromJson(response);
-                });
+        app.controller('post', function getInfo($scope, $http) {
+            $scope.name = null;
+            $scope.host = null;
+            $scope.info = null;
+            $scope.person = null;
+            $scope.type = null;
+            $scope.alert = [];
+
+            $scope.getInfo = function getInfo(name, host, info, person, type) {
+
+                var data = {
+                    name: name,
+                    host: host,
+                    info: info,
+                    person: person,
+                    type: type
+                };
+                var url = "https://h2kgcp144d.execute-api.us-east-2.amazonaws.com/Testing-midterm/rds-insert-alert-info";
+
+                $http.post(url, data)
+                    .then(
+                        function(response) {
+                            $scope.alert.push(response.data);
+                            alert("Add successful");
+                        },
+                        function(error) {
+                            alert("Failed");
+                        });
+            };
         });
     </script>
+
 </body>
 
 </html>
