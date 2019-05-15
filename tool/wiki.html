@@ -146,9 +146,7 @@
                             <div class="card-header">
                                 <div class="col-sm-9 col-md-3">
                                     <label>Add Info for Alerts</label><br>
-                                    <button class="btn btn-success" class="form-control" type="button" value="Add" href="add.html">
-                                        Add Info
-                                    </button>
+                                    <a href="add.html" class="btn btn-success">  Add Info</a>
                                 </div>
                                 <div class="col-sm-9 col-md-4">
                                     <label>Delete:<input type="num" class="form-control" placeholder="Insert ID" ng-model="id"></label>
@@ -226,37 +224,7 @@
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
-    <script>
-        var myapp = angular.module('myapp', []);
-        myapp.controller('Alerts', function getAlerts($scope, $http) {
-
-            $http.get("https://h2kgcp144d.execute-api.us-east-2.amazonaws.com/Testing-midterm/rds-get-alert-info")
-                .success(function(response) {
-                    $scope.alerts = angular.fromJson(response);
-                });
-
-            $scope.id = null;
-            $scope.alerts = [];
-
-            $scope.getId = function(id) {
-
-                var data = {
-                    id: id
-                };
-                var url = "https://h2kgcp144d.execute-api.us-east-2.amazonaws.com/Testing-midterm/rds-delete-alert-info";
-
-                $http.post(url, data)
-                    .then(
-                        function(response) {
-                            $scope.alerts.push(response.data);
-                            alert('Deleted!');
-                        },
-                        function(error) {
-                            alert('Failed to post data');
-                        });
-            };
-        });
-    </script>
+    <script src="func/wiki.js"></script>
 </body>
 
 </html>

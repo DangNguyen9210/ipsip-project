@@ -205,16 +205,7 @@
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
-    <script>
-        var myapp = angular.module('myapp', []);
-        myapp.controller('getAlerts', function getAlerts($scope, $http) {
-
-            $http.get("https://h2kgcp144d.execute-api.us-east-2.amazonaws.com/Testing-midterm/rds-get-alert-trigger-resolve")
-                .success(function(response) {
-                    $scope.names = angular.fromJson(response);
-                });
-        });
-    </script>
+    <script src="func/resolved.js"></script>
 </body>
 
 </html>

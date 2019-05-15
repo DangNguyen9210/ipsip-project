@@ -149,7 +149,8 @@
                                     <!-- <strong class="card-title"><h1>Daily NOC Records</h1></strong> -->
                                     <label>Name:<input type="text" class="form-control" placeholder="" aria-controls="bootstrap-data-table-export" ng-model="name"></label>
                                     <label>Host:<input type="text" class="form-control" placeholder="" aria-controls="bootstrap-data-table-export" ng-model="host"></label>
-                                    <input type="button" ng-model="hide" class="btn btn-primary" value="Search" ng-click="getSearch(name, host)">
+                                    <input type="button" ng-model="hide" class="btn btn-success" value="Search" ng-click="getSearch(name, host)">
+                                    <input type="button" ng-model="hide" class="btn btn-danger" value="Cancel" onClick="window.location.reload()">
                                 </div>
                                 <div class="col-sm-9 col-md-2">
                                     <div id="bootstrap-data-table-export_filter" class="dataTables_filter">
@@ -227,36 +228,7 @@
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
-    <script>
-        var myapp = angular.module('myapp', []);
-        myapp.controller('Alerts', function getAlerts($scope, $http) {
-
-            $scope.name = null;
-            $scope.host = null;
-            $scope.searchs = [];
-            $scope.hide = false;
-
-            $scope.getSearch = function(name, host) {
-                $scope.hide = $scope.hide = true;
-                var data = {
-                    name: name,
-                    host: host
-                };
-                var url = "https://h2kgcp144d.execute-api.us-east-2.amazonaws.com/Testing-midterm/rds-search-alert-info";
-
-                $http.post(url, data)
-                    .then(
-                        function(response) {
-                            $scope.searchs = angular.fromJson(response.data);
-                            //$scope.hide = false;
-                        },
-                        function(error) {
-                            alert('Failed to search');
-                            //$scope.search = false;
-                        });
-            };
-        });
-    </script>
+    <script src="func/search.js"></script>
 </body>
 
 </html>
